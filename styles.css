@@ -28,6 +28,119 @@ body {
     border-bottom: 1px solid var(--secondary-bg);
 }
 
+/* --- Стили для карточек участников --- */
+.section-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 16px;
+}
+
+.export-btn {
+    background-color: var(--secondary-bg);
+    color: var(--hint-color);
+    padding: 6px 12px;
+    border-radius: 6px;
+    font-size: 12px;
+    cursor: pointer;
+}
+
+.roster-list {
+    display: flex;
+    flex-direction: column;
+    gap: 10px; /* Расстояние между карточками */
+}
+
+.member-card {
+    background-color: var(--secondary-bg);
+    border-radius: 12px;
+    padding: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    border: 1px solid rgba(255,255,255,0.05);
+}
+
+.member-left {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+/* Бейдж ранга (R4, R3) */
+.rank-badge {
+    background-color: #2a3846;
+    color: #a0b4c9;
+    padding: 4px 6px;
+    border-radius: 6px;
+    font-size: 11px;
+    font-weight: bold;
+    min-width: 28px;
+    text-align: center;
+}
+
+/* Аватарка */
+.avatar-container {
+    width: 40px;
+    height: 40px;
+    border-radius: 8px;
+    overflow: hidden;
+    background-color: #1a2530;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+}
+
+.avatar-container img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.avatar-placeholder {
+    color: var(--hint-color);
+    font-size: 16px;
+    font-weight: bold;
+}
+
+/* Информация об игроке */
+.member-info {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+}
+
+.member-name {
+    font-weight: 600;
+    font-size: 15px;
+    color: var(--text-color);
+    display: flex;
+    align-items: center;
+    gap: 6px;
+}
+
+.member-details {
+    font-size: 11px;
+    color: var(--hint-color);
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+/* Координаты с цветами */
+.coord-x { color: #5b9bd5; } /* Голубой для X */
+.coord-y { color: #70ad47; } /* Зеленый для Y */
+
+/* Сила игрока справа */
+.member-power {
+    font-weight: 700;
+    font-size: 16px;
+    color: var(--accent-color);
+    text-align: right;
+}
+
 .alliance-tag {
     display: inline-block;
     background-color: var(--accent-color);
