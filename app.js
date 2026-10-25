@@ -1,10 +1,3 @@
-const tg = window.Telegram?.WebApp;
-if (tg) {
-    tg.expand();
-    tg.setHeaderColor('#17212b');
-    tg.setBackgroundColor('#17212b');
-}
-
 document.addEventListener('DOMContentLoaded', async () => {
     try {
         const response = await fetch('data/alliance.json?t=' + new Date().getTime());
@@ -12,6 +5,7 @@ document.addEventListener('DOMContentLoaded', async () => {
         
         const data = await response.json();
         
+        // Данные лежат прямо в корне объекта
         renderAllianceData(data);
         
     } catch (error) {
@@ -29,51 +23,33 @@ function formatNumber(num) {
 }
 
 function renderAllianceData(data) {
-    const base = data.base || {};
-    const tracker = data.tracker || {};
-    const history = data.history || [];
-
     // --- ШАПКА ---
-    // В трекере тег может называться 'abbreviation', а имя 'name'
-    document.getElementById('alliance-tag').textContent = tracker.abbreviation || base.tag || 'TAG';
-    document.getElementById('alliance-name').textContent = tracker.name || base.name || 'Alliance Name';
+    document.getElementById('alliance-tag').textContent = data.tag || 'TAG';
+    document.getElementById('alliance-name').textContent = data.name || 'Alliance Name';
+    document.getElementById('alliance-server').textContent = `Сервер: ${data.server || '-'}`;
     
-    document.getElementById('alliance-server').textContent = `Сервер: ${tracker.server || base.server || '-'}`;
-    
-    const membersCount = base.roster ? base.roster.length : (tracker.member_count || 0);
+    const membersCount = data.roster ? data.roster.length : (data.members || 0);
     document.getElementById('alliance-members').textContent = `Участники: ${membersCount}/100`;
 
     // --- СТАТИСТИКА ---
-    // Берем данные из трекера, если там пусто - из базы
-    const totalPower = tracker.power || base.power || 0;
-    const totalKills = tracker.kills || base.kills || 0;
-
-    document.getElementById('total-power').textContent = formatNumber(totalPower);
-    document.getElementById('total-kills').textContent = formatNumber(totalKills);
+    document.getElementById('total-power').textContent = formatNumber(data.power);
+    document.getElementById('total-kills').textContent = formatNumber(data.kills);
 
     // --- ТАБЛИЦА УЧАСТНИКОВ ---
     const rosterBody = document.getElementById('roster-body');
     rosterBody.innerHTML = '';
     
-    // Используем список из базы (он самый полный по именам и рангам)
-    const roster = base.roster || [];
+    const roster = data.roster || [];
     
     if (roster.length > 0) {
-        // Сортируем по силе
         const sortedRoster = [...roster].sort((a, b) => (b.power || 0) - (a.power || 0));
 
         sortedRoster.forEach(player => {
             const tr = document.createElement('tr');
-            
-            // Пытаемся найти этого игрока в данных трекера, чтобы взять оттуда доп. инфу (например, уровень святилища)
-            // (В данном API список участников трекера лежит в tracker.members, если он пришел)
-            const trackerMember = tracker.members?.find(m => m.uid === player.uid);
-            const sanctuaryInfo = trackerMember ? ` (Ур. ${trackerMember.sanctuary_lv})` : '';
-
             tr.innerHTML = `
                 <td><span class="role-badge">${player.rank || 'R1'}</span></td>
                 <td>${player.name || 'Unknown'}</td>
-                <td><strong>${formatNumber(player.power)}</strong>${sanctuaryInfo}</td>
+                <td><strong>${formatNumber(player.power)}</strong></td>
             `;
             rosterBody.appendChild(tr);
         });
@@ -81,25 +57,24 @@ function renderAllianceData(data) {
         rosterBody.innerHTML = '<tr><td colspan="3" style="text-align: center;">Нет данных о составе</td></tr>';
     }
 
-    renderChart(history);
+    // --- ГРАФИК ---
+    renderChart(data.powerHistory);
 }
 
 function renderChart(history) {
     const ctx = document.getElementById('powerChart').getContext('2d');
     
-    let labels = [];
-    let chartData = [];
+    let labels = ['Сейчас'];
+    let chartData = [0];
 
-    if (history && history.length > 0) {
-        // Превращаем ISO строки в читаемое время (ЧЧ:ММ)
-        labels = history.map(item => {
-            const date = new Date(item.time);
+    if (history && Array.isArray(history) && history.length > 0) {
+        // history имеет формат [[timestamp, power], ...]
+        const recent = history.slice(-24); // последние 24 точки
+        labels = recent.map(item => {
+            const date = new Date(item[0] * 1000);
             return `${date.getHours().toString().padStart(2, '0')}:${date.getMinutes().toString().padStart(2, '0')}`;
         });
-        chartData = history.map(item => item.power);
-    } else {
-        labels = ['Нет данных'];
-        chartData = [0];
+        chartData = recent.map(item => item[1]);
     }
 
     new Chart(ctx, {
@@ -122,10 +97,7 @@ function renderChart(history) {
             maintainAspectRatio: false,
             plugins: { legend: { display: false } },
             scales: {
-                x: { 
-                    grid: { display: false }, 
-                    ticks: { color: '#708499', font: { size: 10 }, maxTicksLimit: 6 } 
-                },
+                x: { grid: { display: false }, ticks: { color: '#708499', font: { size: 10 }, maxTicksLimit: 6 } },
                 y: { 
                     grid: { color: '#232e3c' }, 
                     ticks: { 
