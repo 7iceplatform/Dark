@@ -38,21 +38,16 @@
                 </div>
             </section>
 
-            <section class="roster-section">
-                <h2>Состав альянса</h2>
-                <div class="table-container">
-                    <table class="roster-table">
-                        <thead>
-                            <tr>
-                                <th>Роль</th>
-                                <th>Игрок</th>
-                                <th>Сила</th>
-                            </tr>
-                        </thead>
-                        <tbody id="roster-body">
-                            <tr><td colspan="3" style="text-align: center;">Загрузка данных...</td></tr>
-                        </tbody>
-                    </table>
+                        <section class="roster-section">
+                <div class="section-header">
+                    <h2>Участники</h2>
+                    <!-- Место для кнопки экспорта, как на скрине -->
+                    <div class="export-btn">Export ▾</div> 
+                </div>
+                
+                <!-- Контейнер для карточек -->
+                <div class="roster-list" id="roster-list">
+                    <div class="loading-text">Загрузка данных...</div>
                 </div>
             </section>
         </main>
