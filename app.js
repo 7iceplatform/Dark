@@ -25,7 +25,6 @@ function renderAllianceData(data) {
     const tracker = data.tracker || {};
     const history = data.history || [];
 
-    // --- ШАПКА ---
     document.getElementById('alliance-tag').textContent = tracker.abbreviation || base.tag || 'TAG';
     document.getElementById('alliance-name').textContent = tracker.name || base.name || 'Alliance Name';
     document.getElementById('alliance-server').textContent = `Сервер: ${tracker.server || base.server || '-'}`;
@@ -33,11 +32,9 @@ function renderAllianceData(data) {
     const membersCount = base.roster ? base.roster.length : (tracker.member_count || 0);
     document.getElementById('alliance-members').textContent = `Участники: ${membersCount}/100`;
 
-    // --- СТАТИСТИКА ---
     document.getElementById('total-power').textContent = formatNumber(tracker.power || base.power);
     document.getElementById('total-kills').textContent = formatNumber(tracker.kills || base.kills);
 
-    // --- КАРТОЧКИ УЧАСТНИКОВ ---
     const rosterList = document.getElementById('roster-list');
     rosterList.innerHTML = '';
     
@@ -47,12 +44,13 @@ function renderAllianceData(data) {
         roster.sort((a, b) => (b.power || 0) - (a.power || 0));
 
         roster.forEach(player => {
-            // Ищем данные игрока в массиве трекера
+            // Ищем в трекере по UID
             const trackerMember = tracker.members?.find(m => m.uid === player.uid) || {};
             
-            // Формируем детали (Сервер · Святилище)
             const serverNum = tracker.server || base.server || '';
-            const sanctuaryLv = trackerMember.sanctuary_lv;
+            
+            // Ищем уровень святилища под разными возможными названиями полей
+            const sanctuaryLv = trackerMember.sanctuary_lv || trackerMember.sanctuaryLv || trackerMember.sanctuary_level;
             
             let detailParts = [];
             if (serverNum) detailParts.push(`S${serverNum}`);
@@ -60,11 +58,8 @@ function renderAllianceData(data) {
             
             const detailString = detailParts.join(' · ');
 
-            // Координаты
             const x = trackerMember.x || player.x;
             const y = trackerMember.y || player.y;
-
-            // Заглушка для аватара
             const initial = player.name ? player.name.charAt(0).toUpperCase() : '?';
 
             const card = document.createElement('div');
@@ -94,7 +89,6 @@ function renderAllianceData(data) {
         rosterList.innerHTML = '<div class="loading-text">Нет данных о составе</div>';
     }
 
-    // --- ГРАФИК ---
     renderChart(history);
 }
 
@@ -104,7 +98,6 @@ function renderChart(history) {
     let labels = [];
     let chartData = [];
 
-    // Фильтруем историю, чтобы убрать битые данные (NaN)
     const validHistory = history.filter(item => {
         if (!item.time || !item.power) return false;
         const date = new Date(item.time);
@@ -119,7 +112,7 @@ function renderChart(history) {
         chartData = validHistory.map(item => item.power);
     } else {
         labels = ['Нет данных'];
-        chartData = [0]; // Чтобы график не ломался
+        chartData = [0];
     }
 
     new Chart(ctx, {
@@ -134,7 +127,8 @@ function renderChart(history) {
                 borderWidth: 2,
                 fill: true,
                 tension: 0.4,
-                pointRadius: 0
+                pointRadius: 3, // <-- ИСПРАВЛЕНО: теперь одна точка тоже будет видна
+                pointBackgroundColor: '#5288c1'
             }]
         },
         options: {
