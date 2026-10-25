@@ -1,14 +1,27 @@
+const tg = window.Telegram?.WebApp;
+if (tg) {
+    tg.expand();
+    tg.setHeaderColor('#17212b');
+    tg.setBackgroundColor('#17212b');
+}
+
 document.addEventListener('DOMContentLoaded', async () => {
+    console.log("DOM загружен, начинаем загрузку данных...");
     try {
         const response = await fetch('data/alliance.json?t=' + new Date().getTime());
-        if (!response.ok) throw new Error('Ошибка сети');
+        console.log("Ответ от сервера получен, статус:", response.status);
+        
+        if (!response.ok) throw new Error('Файл JSON не найден (404)');
         
         const data = await response.json();
+        console.log("Данные успешно прочитаны:", data);
+        
         renderAllianceData(data);
         
     } catch (error) {
         console.error('Ошибка загрузки:', error);
-        document.getElementById('alliance-name').textContent = 'Ошибка загрузки данных';
+        document.getElementById('alliance-name').textContent = 'Ошибка загрузки';
+        document.getElementById('roster-list').innerHTML = `<div style="color: red; padding: 20px; text-align: center;">Ошибка: ${error.message}</div>`;
     }
 });
 
@@ -29,11 +42,11 @@ function renderAllianceData(data) {
     document.getElementById('alliance-tag').textContent = tracker.abbreviation || base.tag || 'TAG';
     document.getElementById('alliance-name').textContent = tracker.name || base.name || 'Alliance Name';
     
-    // Берем сервер из kid (kingdom id) в трекере
-    const serverId = tracker.members?.[0]?.kid || tracker.server || base.server || '-';
+    // Ищем ID сервера
+    const serverId = (tracker.members && tracker.members[0]?.kid) || tracker.server || base.server || '-';
     document.getElementById('alliance-server').textContent = `Сервер: ${serverId}`;
     
-    const membersCount = base.roster ? base.roster.length : (tracker.member_count || 0);
+    const membersCount = (base.roster && base.roster.length) ? base.roster.length : (tracker.member_count || 0);
     document.getElementById('alliance-members').textContent = `Участники: ${membersCount}/100`;
 
     // --- СТАТИСТИКА ---
@@ -42,44 +55,44 @@ function renderAllianceData(data) {
 
     // --- КАРТОЧКИ УЧАСТНИКОВ ---
     const rosterList = document.getElementById('roster-list');
+    if (!rosterList) {
+        console.error("КРИТИЧЕСКАЯ ОШИБКА: Не найден элемент с id='roster-list'. Вы точно обновили index.html?");
+        return;
+    }
     rosterList.innerHTML = '';
     
-    // Берем базовый ростер (там точно есть все игроки и их ранги)
-    let roster = base.roster || [];
+    // Берем список либо из базы, либо из трекера
+    let roster = (base.roster && base.roster.length > 0) ? base.roster : (tracker.members || []);
     
     if (roster.length > 0) {
+        // Сортируем по силе
         roster.sort((a, b) => (b.power || 0) - (a.power || 0));
 
         roster.forEach(player => {
-            // Ищем игрока в списке от Трекера
-            const trackerMember = tracker.members?.find(m => m.uid === player.uid) || {};
+            // Если данные из базы, ищем доп инфу в трекере
+            const trackerMember = (tracker.members || []).find(m => m.uid === player.uid) || {};
             
-            // Названия полей из логов GitHub Actions:
+            // Собираем данные, учитывая разные названия полей
             const serverNum = trackerMember.kid || base.server || '';
-            const sanctuaryLv = trackerMember.lv; // В API это 'lv'
+            const sanctuaryLv = trackerMember.lv || trackerMember.sanctuary_lv;
             const x = trackerMember.x || player.x;
             const y = trackerMember.y || player.y;
-            const avatarUrl = trackerMember.avatar_url; // Ссылка на аву
+            const avatarUrl = trackerMember.avatar_url || player.avatar_url;
             
-            // Ранг берем из базы (он короче, например "R4"), если нет - из трекера
             const rank = player.rank || (trackerMember.rank_label ? trackerMember.rank_label.split(' ')[0] : 'R1');
-            const playerName = trackerMember.nick_name || player.name || 'Unknown';
+            const playerName = trackerMember.nick_name || player.name || player.nick_name || 'Unknown';
 
-            // Формируем строку с деталями
             let detailParts = [];
             if (serverNum) detailParts.push(`S${serverNum}`);
             if (sanctuaryLv) detailParts.push(`Sanctuary ${sanctuaryLv}`);
             const detailString = detailParts.join(' · ');
 
-            // Аватарка
             let avatarHtml = '';
             if (avatarUrl) {
-                // Если ссылка есть, показываем картинку
-                avatarHtml = `<img src="${avatarUrl}" alt="avatar">`;
+                avatarHtml = `<img src="${avatarUrl}" alt="avatar" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">`;
+                avatarHtml += `<div class="avatar-placeholder" style="display:none;">${playerName.charAt(0).toUpperCase()}</div>`;
             } else {
-                // Если нет, показываем первую букву
-                const initial = playerName.charAt(0).toUpperCase();
-                avatarHtml = `<div class="avatar-placeholder">${initial}</div>`;
+                avatarHtml = `<div class="avatar-placeholder">${playerName.charAt(0).toUpperCase()}</div>`;
             }
 
             const card = document.createElement('div');
@@ -112,8 +125,10 @@ function renderAllianceData(data) {
     renderChart(history);
 }
 
+// ... функция renderChart остается без изменений ...
 function renderChart(history) {
-    const ctx = document.getElementById('powerChart').getContext('2d');
+    const ctx = document.getElementById('powerChart');
+    if (!ctx) return;
     
     let labels = [];
     let chartData = [];
@@ -147,7 +162,7 @@ function renderChart(history) {
                 borderWidth: 2,
                 fill: true,
                 tension: 0.4,
-                pointRadius: 3, // Точка теперь видна
+                pointRadius: 3,
                 pointBackgroundColor: '#5288c1'
             }]
         },
