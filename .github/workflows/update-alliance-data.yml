@@ -14,12 +14,15 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
-      - name: Fetch public alliance snapshot
-        run: |
-          mkdir -p data
-          curl --fail --silent --show-error --retry 3 \
-            https://lastasylum.gg/api/alliance/67172519 \
-            --output data/alliance.json
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20' # Важно для встроенного fetch
+
+      - name: Fetch and merge data
+        env:
+          TRACKER_API_KEY: ${{ secrets.TRACKER_API_KEY }}
+        run: node merge.js
 
       - name: Commit changed snapshot
         run: |
@@ -33,5 +36,5 @@ jobs:
             exit 0
           fi
           
-          git commit -m "chore: refresh alliance snapshot"
+          git commit -m "chore: refresh merged alliance snapshot"
           git push
