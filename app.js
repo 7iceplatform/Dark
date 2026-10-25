@@ -1,4 +1,5 @@
-const API_URL = "https://lastasylum.gg/api/alliance/67172519";
+// Same-origin server function. It avoids a CORS failure inside Telegram WebView.
+const API_URL = "/api/alliance";
 const DAY = 24 * 60 * 60 * 1000;
 const tg = window.Telegram?.WebApp;
 
