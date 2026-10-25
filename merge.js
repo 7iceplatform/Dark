@@ -3,14 +3,11 @@ import path from 'path';
 
 // ID вашего альянса
 const ALLIANCE_ID = '67172519';
-// Ваш сервер и тег (замените на актуальные для трекера, если нужно)
-const SERVER = '67172519'; // или номер сервера, если требуется API
-const TAG = 'DARK'; 
 
 async function fetchData() {
-    const mergedData = {};
+    const mergedData = { base: null, tracker: null, history: [] };
 
-    // 1. Получаем базовые данные с официального API игры
+    // 1. Получаем базовые данные с официального API игры (список игроков)
     try {
         console.log('Fetching from lastasylum.gg...');
         const res1 = await fetch(`https://lastasylum.gg/api/alliance/${ALLIANCE_ID}`);
@@ -18,22 +15,21 @@ async function fetchData() {
         mergedData.base = await res1.json();
     } catch (e) {
         console.error('Ошибка при запросе к lastasylum.gg:', e.message);
-        process.exit(1); // Если база не загрузилась, нет смысла продолжать
+        process.exit(1); 
     }
 
     // 2. Получаем расширенные данные с Tracker API
     const TRACKER_API_KEY = process.env.TRACKER_API_KEY;
-    if (!TRACKER_API_KEY) {
-        console.warn('TRACKER_API_KEY не найден в секретах. Пропускаем Tracker API.');
-    } else {
+    if (TRACKER_API_KEY) {
         try {
             console.log('Fetching from lastasylumtracker.com...');
-            // Внимание: проверьте точный URL в документации API трекера!
-            // Обычно это что-то вроде /v1/alliances/{server}/{tag} или /v1/alliances/{id}
-            const res2 = await fetch(`https://api.lastasylumtracker.com/v1/alliances/${SERVER}/${TAG}`, {
+            // Согласно документации, используем ID альянса
+            const res2 = await fetch(`https://api.lastasylumtracker.com/v1/alliances/${ALLIANCE_ID}`, {
                 headers: {
                     'Authorization': `Bearer ${TRACKER_API_KEY}`,
-                    'Accept': 'application/json'
+                    'Accept': 'application/json',
+                    // Обязательно передаем User-Agent, чтобы не получить 403 от Cloudflare
+                    'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36'
                 }
             });
             
@@ -41,19 +37,50 @@ async function fetchData() {
                 mergedData.tracker = await res2.json();
             } else {
                 console.error(`Tracker API вернул ошибку: ${res2.status}`);
+                const errText = await res2.text();
+                console.error('Детали:', errText);
             }
         } catch (e) {
             console.error('Ошибка при запросе к Tracker API:', e.message);
         }
+    } else {
+        console.warn('TRACKER_API_KEY не найден. Используются только базовые данные.');
     }
 
-    // 3. Сохраняем объединенный файл
+    // 3. Работа с историей (чтобы рисовать графики)
+    const filePath = path.join('data', 'alliance.json');
+    let oldHistory = [];
+    
+    // Пытаемся прочитать старый файл, чтобы забрать оттуда историю
+    try {
+        const oldFile = await fs.readFile(filePath, 'utf-8');
+        const oldData = JSON.parse(oldFile);
+        if (oldData.history && Array.isArray(oldData.history)) {
+            oldHistory = oldData.history;
+        }
+    } catch (e) {
+        console.log('Старый файл не найден или поврежден. Создаем новый.');
+    }
+
+    // Берем текущую силу (приоритет у трекера, если он ответил)
+    const currentPower = mergedData.tracker?.power || mergedData.base?.power || 0;
+    
+    if (currentPower > 0) {
+        // Добавляем новую точку (текущее время и сила)
+        oldHistory.push({
+            time: new Date().toISOString(),
+            power: currentPower
+        });
+    }
+
+    // Ограничиваем историю последними 96 точками (24 часа * 4 раза в час = 96)
+    // Это чтобы файл не разрастался до гигантских размеров
+    mergedData.history = oldHistory.slice(-96);
+
+    // 4. Сохраняем объединенный файл
     await fs.mkdir('data', { recursive: true });
-    await fs.writeFile(
-        path.join('data', 'alliance.json'), 
-        JSON.stringify(mergedData, null, 2)
-    );
-    console.log('Данные успешно объединены и сохранены в data/alliance.json');
+    await fs.writeFile(filePath, JSON.stringify(mergedData, null, 2));
+    console.log('Данные успешно объединены, история обновлена.');
 }
 
 fetchData();
