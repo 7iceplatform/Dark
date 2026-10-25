@@ -1,0 +1,34 @@
+name: Update alliance data
+
+on:
+  schedule:
+    - cron: "*/15 * * * *"
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  update:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Fetch public alliance snapshot
+        run: |
+          mkdir -p data
+          curl --fail --silent --show-error --retry 3 \
+            https://lastasylum.gg/api/alliance/67172519 \
+            --output data/alliance.json
+          jq -e '.id and (.roster | type == "array") and .asOf' data/alliance.json > /dev/null
+
+      - name: Commit changed snapshot
+        run: |
+          if git diff --quiet -- data/alliance.json; then
+            exit 0
+          fi
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add data/alliance.json
+          git commit -m "chore: refresh alliance snapshot"
+          git push
