@@ -4,8 +4,6 @@ document.addEventListener('DOMContentLoaded', async () => {
         if (!response.ok) throw new Error('Ошибка сети');
         
         const data = await response.json();
-        
-        // Данные лежат прямо в корне объекта
         renderAllianceData(data);
         
     } catch (error) {
@@ -43,27 +41,30 @@ function renderAllianceData(data) {
     const rosterList = document.getElementById('roster-list');
     rosterList.innerHTML = '';
     
-    // Берем список из базы (там точно есть имена и ранги)
     let roster = base.roster || [];
     
-    // Сортируем по силе (от большего к меньшему)
     if (roster.length > 0) {
         roster.sort((a, b) => (b.power || 0) - (a.power || 0));
 
         roster.forEach(player => {
-            // Пытаемся найти дополнительные данные (святилище, координаты) в трекере
+            // Ищем данные игрока в массиве трекера
             const trackerMember = tracker.members?.find(m => m.uid === player.uid) || {};
-
-            // Достаем данные, если их нет - ставим прочерк
-            const sanctuary = trackerMember.sanctuary_lv ? `Sanctuary ${trackerMember.sanctuary_lv}` : (player.sanctuary_lv ? `Sanctuary ${player.sanctuary_lv}` : '');
-            const server = tracker.server || base.server || '';
-            const x = trackerMember.x || player.x || '-';
-            const y = trackerMember.y || player.y || '-';
             
-            // Формируем красивую строку с деталями (S29 · Sanctuary 30)
-            const detailString = [server ? `S${server}` : '', sanctuary].filter(Boolean).join(' · ');
+            // Формируем детали (Сервер · Святилище)
+            const serverNum = tracker.server || base.server || '';
+            const sanctuaryLv = trackerMember.sanctuary_lv;
+            
+            let detailParts = [];
+            if (serverNum) detailParts.push(`S${serverNum}`);
+            if (sanctuaryLv) detailParts.push(`Sanctuary ${sanctuaryLv}`);
+            
+            const detailString = detailParts.join(' · ');
 
-            // Генерируем заглушку для аватарки (первая буква имени)
+            // Координаты
+            const x = trackerMember.x || player.x;
+            const y = trackerMember.y || player.y;
+
+            // Заглушка для аватара
             const initial = player.name ? player.name.charAt(0).toUpperCase() : '?';
 
             const card = document.createElement('div');
@@ -73,15 +74,14 @@ function renderAllianceData(data) {
                 <div class="member-left">
                     <div class="rank-badge">${player.rank || 'R1'}</div>
                     <div class="avatar-container">
-                        <!-- Сюда можно будет подставить ссылку на аватарку, если API ее отдаст -->
                         <div class="avatar-placeholder">${initial}</div>
                     </div>
                     <div class="member-info">
                         <div class="member-name">${player.name || 'Unknown'}</div>
                         <div class="member-details">
-                            <span>${detailString}</span>
-                            ${x !== '-' ? `<span class="coord-x">x ${x}</span>` : ''}
-                            ${y !== '-' ? `<span class="coord-y">y ${y}</span>` : ''}
+                            ${detailString ? `<span>${detailString}</span>` : ''}
+                            ${x ? `<span class="coord-x">x ${x}</span>` : ''}
+                            ${y ? `<span class="coord-y">y ${y}</span>` : ''}
                         </div>
                     </div>
                 </div>
@@ -101,17 +101,25 @@ function renderAllianceData(data) {
 function renderChart(history) {
     const ctx = document.getElementById('powerChart').getContext('2d');
     
-    let labels = ['Сейчас'];
-    let chartData = [0];
+    let labels = [];
+    let chartData = [];
 
-    if (history && Array.isArray(history) && history.length > 0) {
-        // history имеет формат [[timestamp, power], ...]
-        const recent = history.slice(-24); // последние 24 точки
-        labels = recent.map(item => {
-            const date = new Date(item[0] * 1000);
+    // Фильтруем историю, чтобы убрать битые данные (NaN)
+    const validHistory = history.filter(item => {
+        if (!item.time || !item.power) return false;
+        const date = new Date(item.time);
+        return !isNaN(date.getTime());
+    });
+
+    if (validHistory.length > 0) {
+        labels = validHistory.map(item => {
+            const date = new Date(item.time);
             return `${date.getHours().toString().padStart(2, '0')}:${date.getMinutes().toString().padStart(2, '0')}`;
         });
-        chartData = recent.map(item => item[1]);
+        chartData = validHistory.map(item => item.power);
+    } else {
+        labels = ['Нет данных'];
+        chartData = [0]; // Чтобы график не ломался
     }
 
     new Chart(ctx, {
