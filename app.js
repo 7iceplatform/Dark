@@ -25,54 +25,74 @@ function renderAllianceData(data) {
     const tracker = data.tracker || {};
     const history = data.history || [];
 
+    // --- ШАПКА ---
     document.getElementById('alliance-tag').textContent = tracker.abbreviation || base.tag || 'TAG';
     document.getElementById('alliance-name').textContent = tracker.name || base.name || 'Alliance Name';
-    document.getElementById('alliance-server').textContent = `Сервер: ${tracker.server || base.server || '-'}`;
+    
+    // Берем сервер из kid (kingdom id) в трекере
+    const serverId = tracker.members?.[0]?.kid || tracker.server || base.server || '-';
+    document.getElementById('alliance-server').textContent = `Сервер: ${serverId}`;
     
     const membersCount = base.roster ? base.roster.length : (tracker.member_count || 0);
     document.getElementById('alliance-members').textContent = `Участники: ${membersCount}/100`;
 
+    // --- СТАТИСТИКА ---
     document.getElementById('total-power').textContent = formatNumber(tracker.power || base.power);
     document.getElementById('total-kills').textContent = formatNumber(tracker.kills || base.kills);
 
+    // --- КАРТОЧКИ УЧАСТНИКОВ ---
     const rosterList = document.getElementById('roster-list');
     rosterList.innerHTML = '';
     
+    // Берем базовый ростер (там точно есть все игроки и их ранги)
     let roster = base.roster || [];
     
     if (roster.length > 0) {
         roster.sort((a, b) => (b.power || 0) - (a.power || 0));
 
         roster.forEach(player => {
-            // Ищем в трекере по UID
+            // Ищем игрока в списке от Трекера
             const trackerMember = tracker.members?.find(m => m.uid === player.uid) || {};
             
-            const serverNum = tracker.server || base.server || '';
+            // Названия полей из логов GitHub Actions:
+            const serverNum = trackerMember.kid || base.server || '';
+            const sanctuaryLv = trackerMember.lv; // В API это 'lv'
+            const x = trackerMember.x || player.x;
+            const y = trackerMember.y || player.y;
+            const avatarUrl = trackerMember.avatar_url; // Ссылка на аву
             
-            // Ищем уровень святилища под разными возможными названиями полей
-            const sanctuaryLv = trackerMember.sanctuary_lv || trackerMember.sanctuaryLv || trackerMember.sanctuary_level;
-            
+            // Ранг берем из базы (он короче, например "R4"), если нет - из трекера
+            const rank = player.rank || (trackerMember.rank_label ? trackerMember.rank_label.split(' ')[0] : 'R1');
+            const playerName = trackerMember.nick_name || player.name || 'Unknown';
+
+            // Формируем строку с деталями
             let detailParts = [];
             if (serverNum) detailParts.push(`S${serverNum}`);
             if (sanctuaryLv) detailParts.push(`Sanctuary ${sanctuaryLv}`);
-            
             const detailString = detailParts.join(' · ');
 
-            const x = trackerMember.x || player.x;
-            const y = trackerMember.y || player.y;
-            const initial = player.name ? player.name.charAt(0).toUpperCase() : '?';
+            // Аватарка
+            let avatarHtml = '';
+            if (avatarUrl) {
+                // Если ссылка есть, показываем картинку
+                avatarHtml = `<img src="${avatarUrl}" alt="avatar">`;
+            } else {
+                // Если нет, показываем первую букву
+                const initial = playerName.charAt(0).toUpperCase();
+                avatarHtml = `<div class="avatar-placeholder">${initial}</div>`;
+            }
 
             const card = document.createElement('div');
             card.className = 'member-card';
             
             card.innerHTML = `
                 <div class="member-left">
-                    <div class="rank-badge">${player.rank || 'R1'}</div>
+                    <div class="rank-badge">${rank}</div>
                     <div class="avatar-container">
-                        <div class="avatar-placeholder">${initial}</div>
+                        ${avatarHtml}
                     </div>
                     <div class="member-info">
-                        <div class="member-name">${player.name || 'Unknown'}</div>
+                        <div class="member-name">${playerName}</div>
                         <div class="member-details">
                             ${detailString ? `<span>${detailString}</span>` : ''}
                             ${x ? `<span class="coord-x">x ${x}</span>` : ''}
@@ -127,7 +147,7 @@ function renderChart(history) {
                 borderWidth: 2,
                 fill: true,
                 tension: 0.4,
-                pointRadius: 3, // <-- ИСПРАВЛЕНО: теперь одна точка тоже будет видна
+                pointRadius: 3, // Точка теперь видна
                 pointBackgroundColor: '#5288c1'
             }]
         },
