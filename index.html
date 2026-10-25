@@ -1,0 +1,94 @@
+<!doctype html>
+<html lang="ru">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="theme-color" content="#10151b" />
+    <title>Alliance Watch</title>
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <main class="app-shell">
+      <header class="hero">
+        <p class="eyebrow">R4 · Alliance Watch</p>
+        <div class="hero-row">
+          <div>
+            <h1 id="alliance-name">Загрузка альянса…</h1>
+            <p id="alliance-meta" class="muted">Получаем свежий снимок</p>
+          </div>
+          <button id="refresh-button" class="icon-button" type="button" aria-label="Обновить данные">↻</button>
+        </div>
+        <p id="updated-at" class="caption"></p>
+      </header>
+
+      <section id="error-card" class="error-card hidden" role="alert">
+        <strong>Не удалось загрузить данные</strong>
+        <p id="error-message"></p>
+        <button id="retry-button" class="secondary-button" type="button">Повторить</button>
+      </section>
+
+      <section id="dashboard" class="hidden">
+        <div class="metric-grid" aria-label="Сводка">
+          <article class="metric-card"><span>Участников</span><strong id="metric-members">—</strong></article>
+          <article class="metric-card"><span>Мощь</span><strong id="metric-power">—</strong></article>
+          <article class="metric-card warning"><span>Требуют внимания</span><strong id="metric-attention">—</strong></article>
+          <article class="metric-card"><span>Новички</span><strong id="metric-newcomers">—</strong></article>
+        </div>
+
+        <section class="section-block">
+          <div class="section-heading">
+            <div>
+              <p class="eyebrow">Приоритет R4</p>
+              <h2>Кого проверить</h2>
+            </div>
+            <button id="rules-button" class="text-button" type="button">Как считается?</button>
+          </div>
+          <div id="attention-list" class="attention-list"></div>
+        </section>
+
+        <section class="section-block">
+          <div class="section-heading filter-heading">
+            <div>
+              <p class="eyebrow">Состав</p>
+              <h2>Игроки</h2>
+            </div>
+            <label class="search-field">
+              <span class="sr-only">Поиск игрока</span>
+              <input id="player-search" type="search" placeholder="Найти игрока" autocomplete="off" />
+            </label>
+          </div>
+          <div class="filters" role="tablist" aria-label="Фильтр игроков">
+            <button class="filter active" type="button" data-filter="all">Все</button>
+            <button class="filter" type="button" data-filter="attention">Внимание</button>
+            <button class="filter" type="button" data-filter="new">Новички</button>
+            <button class="filter" type="button" data-filter="missing">Нет данных</button>
+          </div>
+          <div class="table-wrap">
+            <table>
+              <thead>
+                <tr><th>Игрок</th><th>Активность</th><th>Рост 7 д</th><th>Статус</th></tr>
+              </thead>
+              <tbody id="players-body"></tbody>
+            </table>
+          </div>
+        </section>
+      </section>
+    </main>
+
+    <dialog id="rules-dialog">
+      <article>
+        <div class="dialog-heading"><h2>Правила анализа</h2><button id="close-rules" class="icon-button" type="button" aria-label="Закрыть">×</button></div>
+        <p>API не передаёт время последнего входа. «Внимание» означает слабый вклад в альянс, а не подтверждённый офлайн.</p>
+        <ul>
+          <li><strong>Критично:</strong> в альянсе 7+ дней, активность до 200 и прирост до 3 млн за 7 дней.</li>
+          <li><strong>Проверить:</strong> в альянсе 7+ дней и один из показателей ниже порога.</li>
+          <li><strong>Новичок:</strong> вступил менее 7 дней назад; не попадает в список исключения автоматически.</li>
+          <li><strong>Нет данных:</strong> отсутствуют активность или дата вступления.</li>
+        </ul>
+      </article>
+    </dialog>
+
+    <script src="https://telegram.org/js/telegram-web-app.js"></script>
+    <script src="app.js"></script>
+  </body>
+</html>
