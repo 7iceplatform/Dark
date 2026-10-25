@@ -1,19 +1,15 @@
-// Инициализация Telegram WebApp
-const tg = window.Telegram?.WebApp;
-if (tg) {
-    tg.expand();
-    tg.setHeaderColor('#17212b');
-    tg.setBackgroundColor('#17212b');
-}
-
 document.addEventListener('DOMContentLoaded', async () => {
     try {
-        // Загружаем данные
-        const response = await fetch('data/alliance.json?t=' + new Date().getTime()); // Кэш-бастинг
+        const response = await fetch('data/alliance.json?t=' + new Date().getTime());
         if (!response.ok) throw new Error('Ошибка сети');
         
         const data = await response.json();
-        renderAllianceData(data);
+        
+        // Извлекаем данные. Если tracker нет, используем пустой объект
+        const baseData = data.base || {};
+        const trackerData = data.tracker || {};
+
+        renderAllianceData(baseData, trackerData);
         
     } catch (error) {
         console.error('Ошибка загрузки:', error);
@@ -21,34 +17,32 @@ document.addEventListener('DOMContentLoaded', async () => {
     }
 });
 
-function formatNumber(num) {
-    if (!num) return '0';
-    if (num >= 1000000000) return (num / 1000000000).toFixed(2) + 'B';
-    if (num >= 1000000) return (num / 1000000).toFixed(2) + 'M';
-    if (num >= 1000) return (num / 1000).toFixed(1) + 'K';
-    return num.toString();
-}
-
-function renderAllianceData(data) {
-    // Шапка
-    document.getElementById('alliance-tag').textContent = data.tag || 'TAG';
-    document.getElementById('alliance-name').textContent = data.name || 'Alliance Name';
-    document.getElementById('alliance-server').textContent = `Сервер: ${data.server || '-'}`;
+function renderAllianceData(baseData, trackerData) {
+    // Берем инфу из базы, если ее нет — пытаемся взять из трекера
+    document.getElementById('alliance-tag').textContent = baseData.tag || trackerData.tag || 'TAG';
+    document.getElementById('alliance-name').textContent = baseData.name || trackerData.name || 'Alliance Name';
     
-    const membersCount = data.roster ? data.roster.length : 0;
+    document.getElementById('alliance-server').textContent = `Сервер: ${baseData.server || trackerData.server || '-'}`;
+    
+    // Участники: считаем из базы, или берем из трекера, если там есть точное число
+    const membersCount = baseData.roster ? baseData.roster.length : (trackerData.memberCount || 0);
     document.getElementById('alliance-members').textContent = `Участники: ${membersCount}/100`;
 
-    // Карточки статистики
-    document.getElementById('total-power').textContent = formatNumber(data.power);
-    document.getElementById('total-kills').textContent = formatNumber(data.kills);
+    // Карточки статистики (приоритет у трекера, так как он может считать точнее)
+    const totalPower = trackerData.power || baseData.power || 0;
+    const totalKills = trackerData.kills || baseData.kills || 0;
 
-    // Таблица участников
+    document.getElementById('total-power').textContent = formatNumber(totalPower);
+    document.getElementById('total-kills').textContent = formatNumber(totalKills);
+
+    // Таблица (используем ростер из базы, так как он самый актуальный)
     const rosterBody = document.getElementById('roster-body');
     rosterBody.innerHTML = '';
     
-    if (data.roster && Array.isArray(data.roster)) {
-        // Сортируем по силе (по убыванию)
-        const sortedRoster = [...data.roster].sort((a, b) => (b.power || 0) - (a.power || 0));
+    const roster = baseData.roster || trackerData.roster || [];
+    
+    if (roster.length > 0) {
+        const sortedRoster = [...roster].sort((a, b) => (b.power || 0) - (a.power || 0));
 
         sortedRoster.forEach(player => {
             const tr = document.createElement('tr');
@@ -63,27 +57,26 @@ function renderAllianceData(data) {
         rosterBody.innerHTML = '<tr><td colspan="3" style="text-align: center;">Нет данных о составе</td></tr>';
     }
 
-    // График (если есть история)
-    renderChart(data);
+    renderChart(baseData, trackerData);
 }
 
-function renderChart(data) {
+function renderChart(baseData, trackerData) {
     const ctx = document.getElementById('powerChart').getContext('2d');
     
-    // Если API отдает историю в виде массива [timestamp, power]
-    // Если истории нет, рисуем заглушку (одну точку)
     let labels = ['Сейчас'];
-    let chartData = [data.power || 0];
+    let chartData = [trackerData.power || baseData.power || 0];
 
-    // Проверяем, есть ли массив истории в API (зависит от структуры lastasylum.gg)
-    if (data.powerHistory && Array.isArray(data.powerHistory) && data.powerHistory.length > 0) {
-        // Берем последние 10 записей
-        const history = data.powerHistory.slice(-10);
+    // Ищем историю в данных трекера (если API ее отдает)
+    // Предполагаем, что она лежит в trackerData.history (нужно проверить по документации)
+    const history = trackerData.history || baseData.powerHistory;
+
+    if (history && Array.isArray(history) && history.length > 0) {
         labels = history.map(item => {
-            const date = new Date(item[0] * 1000); // Предполагаем Unix timestamp
-            return `${date.getHours()}:${date.getMinutes().toString().padStart(2, '0')}`;
+            // В зависимости от формата времени (timestamp или строка)
+            const date = new Date(item.timestamp || item[0] * 1000);
+            return `${date.getDate()}.${date.getMonth()+1} ${date.getHours()}:${date.getMinutes().toString().padStart(2, '0')}`;
         });
-        chartData = history.map(item => item[1]);
+        chartData = history.map(item => item.power || item[1]);
     }
 
     new Chart(ctx, {
@@ -104,16 +97,11 @@ function renderChart(data) {
         options: {
             responsive: true,
             maintainAspectRatio: false,
-            plugins: {
-                legend: { display: false }
-            },
+            plugins: { legend: { display: false } },
             scales: {
-                x: {
-                    grid: { display: false, color: '#708499' },
-                    ticks: { color: '#708499', font: { size: 10 } }
-                },
-                y: {
-                    grid: { color: '#232e3c' },
+                x: { grid: { display: false }, ticks: { color: '#708499', font: { size: 10 } } },
+                y: { 
+                    grid: { color: '#232e3c' }, 
                     ticks: { 
                         color: '#708499', 
                         font: { size: 10 },
@@ -122,9 +110,17 @@ function renderChart(data) {
                             if (value >= 1000000) return (value / 1000000).toFixed(1) + 'M';
                             return value;
                         }
-                    }
+                    } 
                 }
             }
         }
     });
+}
+
+function formatNumber(num) {
+    if (!num) return '0';
+    if (num >= 1000000000) return (num / 1000000000).toFixed(2) + 'B';
+    if (num >= 1000000) return (num / 1000000).toFixed(2) + 'M';
+    if (num >= 1000) return (num / 1000).toFixed(1) + 'K';
+    return num.toString();
 }
