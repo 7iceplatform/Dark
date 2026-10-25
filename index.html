@@ -4,12 +4,16 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>R4 · Alliance Watch</title>
+    <!-- Подключаем библиотеку для графиков -->
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <!-- Подключаем стили -->
     <link rel="stylesheet" href="styles.css">
+    <!-- Подключаем Telegram WebApp API -->
     <script src="https://telegram.org/js/telegram-web-app.js"></script>
 </head>
 <body>
     <div class="app-container">
+        <!-- Шапка альянса -->
         <header class="header">
             <div class="alliance-tag" id="alliance-tag">DARK</div>
             <h1 class="alliance-name" id="alliance-name">Загрузка...</h1>
@@ -20,6 +24,7 @@
         </header>
 
         <main>
+            <!-- Блок статистики -->
             <section class="stats-grid">
                 <div class="stat-card">
                     <span class="stat-label">Общая сила</span>
@@ -31,6 +36,7 @@
                 </div>
             </section>
 
+            <!-- Блок графика -->
             <section class="chart-section">
                 <h2>Динамика силы</h2>
                 <div class="chart-container">
@@ -38,20 +44,23 @@
                 </div>
             </section>
 
-                        <section class="roster-section">
+            <!-- Блок участников (новый дизайн) -->
+            <section class="roster-section">
                 <div class="section-header">
                     <h2>Участники</h2>
-                    <!-- Место для кнопки экспорта, как на скрине -->
+                    <!-- Кнопка экспорта (пока просто для вида, как на трекере) -->
                     <div class="export-btn">Export ▾</div> 
                 </div>
                 
-                <!-- Контейнер для карточек -->
+                <!-- Контейнер, куда app.js будет вставлять карточки -->
                 <div class="roster-list" id="roster-list">
                     <div class="loading-text">Загрузка данных...</div>
                 </div>
             </section>
         </main>
     </div>
+    
+    <!-- Подключаем логику -->
     <script src="app.js"></script>
 </body>
 </html>
