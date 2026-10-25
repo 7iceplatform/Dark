@@ -1,0 +1,13 @@
+{
+  "name": "alliance-watch-mini-app",
+  "private": true,
+  "type": "module",
+  "version": "1.0.0",
+  "description": "Telegram Mini App for Last Asylum alliance officers",
+  "engines": {
+    "node": ">=18"
+  },
+  "scripts": {
+    "start": "node server.js"
+  }
+}

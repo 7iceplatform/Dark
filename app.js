@@ -1,5 +1,6 @@
-// Same-origin server function. It avoids a CORS failure inside Telegram WebView.
-const API_URL = "/api/alliance";
+// GitHub Pages serves this static snapshot from the same origin, so Telegram WebView
+// does not need a cross-origin request to lastasylum.gg.
+const API_URL = "./data/alliance.json";
 const DAY = 24 * 60 * 60 * 1000;
 const tg = window.Telegram?.WebApp;
 
