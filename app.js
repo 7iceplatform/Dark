@@ -23,42 +23,79 @@ function formatNumber(num) {
 }
 
 function renderAllianceData(data) {
+    const base = data.base || {};
+    const tracker = data.tracker || {};
+    const history = data.history || [];
+
     // --- ШАПКА ---
-    document.getElementById('alliance-tag').textContent = data.tag || 'TAG';
-    document.getElementById('alliance-name').textContent = data.name || 'Alliance Name';
-    document.getElementById('alliance-server').textContent = `Сервер: ${data.server || '-'}`;
+    document.getElementById('alliance-tag').textContent = tracker.abbreviation || base.tag || 'TAG';
+    document.getElementById('alliance-name').textContent = tracker.name || base.name || 'Alliance Name';
+    document.getElementById('alliance-server').textContent = `Сервер: ${tracker.server || base.server || '-'}`;
     
-    const membersCount = data.roster ? data.roster.length : (data.members || 0);
+    const membersCount = base.roster ? base.roster.length : (tracker.member_count || 0);
     document.getElementById('alliance-members').textContent = `Участники: ${membersCount}/100`;
 
     // --- СТАТИСТИКА ---
-    document.getElementById('total-power').textContent = formatNumber(data.power);
-    document.getElementById('total-kills').textContent = formatNumber(data.kills);
+    document.getElementById('total-power').textContent = formatNumber(tracker.power || base.power);
+    document.getElementById('total-kills').textContent = formatNumber(tracker.kills || base.kills);
 
-    // --- ТАБЛИЦА УЧАСТНИКОВ ---
-    const rosterBody = document.getElementById('roster-body');
-    rosterBody.innerHTML = '';
+    // --- КАРТОЧКИ УЧАСТНИКОВ ---
+    const rosterList = document.getElementById('roster-list');
+    rosterList.innerHTML = '';
     
-    const roster = data.roster || [];
+    // Берем список из базы (там точно есть имена и ранги)
+    let roster = base.roster || [];
     
+    // Сортируем по силе (от большего к меньшему)
     if (roster.length > 0) {
-        const sortedRoster = [...roster].sort((a, b) => (b.power || 0) - (a.power || 0));
+        roster.sort((a, b) => (b.power || 0) - (a.power || 0));
 
-        sortedRoster.forEach(player => {
-            const tr = document.createElement('tr');
-            tr.innerHTML = `
-                <td><span class="role-badge">${player.rank || 'R1'}</span></td>
-                <td>${player.name || 'Unknown'}</td>
-                <td><strong>${formatNumber(player.power)}</strong></td>
+        roster.forEach(player => {
+            // Пытаемся найти дополнительные данные (святилище, координаты) в трекере
+            const trackerMember = tracker.members?.find(m => m.uid === player.uid) || {};
+
+            // Достаем данные, если их нет - ставим прочерк
+            const sanctuary = trackerMember.sanctuary_lv ? `Sanctuary ${trackerMember.sanctuary_lv}` : (player.sanctuary_lv ? `Sanctuary ${player.sanctuary_lv}` : '');
+            const server = tracker.server || base.server || '';
+            const x = trackerMember.x || player.x || '-';
+            const y = trackerMember.y || player.y || '-';
+            
+            // Формируем красивую строку с деталями (S29 · Sanctuary 30)
+            const detailString = [server ? `S${server}` : '', sanctuary].filter(Boolean).join(' · ');
+
+            // Генерируем заглушку для аватарки (первая буква имени)
+            const initial = player.name ? player.name.charAt(0).toUpperCase() : '?';
+
+            const card = document.createElement('div');
+            card.className = 'member-card';
+            
+            card.innerHTML = `
+                <div class="member-left">
+                    <div class="rank-badge">${player.rank || 'R1'}</div>
+                    <div class="avatar-container">
+                        <!-- Сюда можно будет подставить ссылку на аватарку, если API ее отдаст -->
+                        <div class="avatar-placeholder">${initial}</div>
+                    </div>
+                    <div class="member-info">
+                        <div class="member-name">${player.name || 'Unknown'}</div>
+                        <div class="member-details">
+                            <span>${detailString}</span>
+                            ${x !== '-' ? `<span class="coord-x">x ${x}</span>` : ''}
+                            ${y !== '-' ? `<span class="coord-y">y ${y}</span>` : ''}
+                        </div>
+                    </div>
+                </div>
+                <div class="member-power">${formatNumber(player.power)}</div>
             `;
-            rosterBody.appendChild(tr);
+            
+            rosterList.appendChild(card);
         });
     } else {
-        rosterBody.innerHTML = '<tr><td colspan="3" style="text-align: center;">Нет данных о составе</td></tr>';
+        rosterList.innerHTML = '<div class="loading-text">Нет данных о составе</div>';
     }
 
     // --- ГРАФИК ---
-    renderChart(data.powerHistory);
+    renderChart(history);
 }
 
 function renderChart(history) {
