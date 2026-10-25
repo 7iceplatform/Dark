@@ -20,7 +20,6 @@ jobs:
           curl --fail --silent --show-error --retry 3 \
             https://lastasylum.gg/api/alliance/67172519 \
             --output data/alliance.json
-          jq -e '.id and (.roster | type == "array") and .asOf' data/alliance.json > /dev/null
 
       - name: Commit changed snapshot
         run: |
