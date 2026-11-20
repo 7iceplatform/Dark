@@ -4,8 +4,8 @@
     "tag": "DARK",
     "name": "IMPERIUM",
     "server": 390,
-    "power": 2618957041,
-    "kills": 13328373,
+    "power": 2671744154,
+    "kills": 13350825,
     "level": 5,
     "members": 99,
     "disbanded": null,
@@ -15,7 +15,7 @@
         "id": "428994609542",
         "name": "SVTr",
         "rank": 3,
-        "power": 53740877,
+        "power": 54424572,
         "kills": 75354,
         "castle": 27,
         "activity": 240,
@@ -32,23 +32,23 @@
         "joined": null
       },
       {
-        "id": "427393335686",
-        "name": "ПлЮша",
-        "rank": null,
-        "power": 41011855,
-        "kills": 339178,
-        "castle": 24,
-        "activity": null,
+        "id": "430325260678",
+        "name": "саняра19",
+        "rank": 3,
+        "power": 43160078,
+        "kills": 201161,
+        "castle": 27,
+        "activity": 215,
         "joined": null
       },
       {
-        "id": "431403991430",
-        "name": "DocIIIaman",
-        "rank": 3,
-        "power": 37162428,
-        "kills": 92357,
-        "castle": 23,
-        "activity": 220,
+        "id": "427393335686",
+        "name": "ПлЮша",
+        "rank": null,
+        "power": 42255779,
+        "kills": 339178,
+        "castle": 24,
+        "activity": null,
         "joined": null
       },
       {
@@ -62,6 +62,26 @@
         "joined": null
       },
       {
+        "id": "431403991430",
+        "name": "DocIIIaman",
+        "rank": 3,
+        "power": 37007806,
+        "kills": 92357,
+        "castle": 23,
+        "activity": 220,
+        "joined": null
+      },
+      {
+        "id": "429616447878",
+        "name": "BaoBaо",
+        "rank": 3,
+        "power": 36738987,
+        "kills": 1231006,
+        "castle": 26,
+        "activity": 200,
+        "joined": null
+      },
+      {
         "id": "427601265030",
         "name": "lleto",
         "rank": 3,
@@ -72,10 +92,20 @@
         "joined": null
       },
       {
+        "id": "429345694086",
+        "name": "ĜhōsťPōtātō",
+        "rank": 3,
+        "power": 35257476,
+        "kills": 341485,
+        "castle": 24,
+        "activity": null,
+        "joined": null
+      },
+      {
         "id": "427355308422",
         "name": "~LILITH~",
         "rank": 5,
-        "power": 34749261,
+        "power": 34761406,
         "kills": 138834,
         "castle": 25,
         "activity": 165,
@@ -92,30 +122,20 @@
         "joined": null
       },
       {
-        "id": "428021440902",
-        "name": "PEPENG-PETMALU",
-        "rank": 3,
-        "power": 34223071,
-        "kills": 122801,
-        "castle": 25,
-        "activity": 200,
-        "joined": null
-      },
-      {
-        "id": "430455832966",
-        "name": "Уevheniia",
-        "rank": 2,
-        "power": 33935072,
-        "kills": 26118,
+        "id": "429064765830",
+        "name": "WhisperingFern",
+        "rank": null,
+        "power": 34226903,
+        "kills": 41924,
         "castle": 22,
-        "activity": 200,
+        "activity": null,
         "joined": null
       },
       {
         "id": "427867505030",
         "name": "MartinTheReaper",
         "rank": 3,
-        "power": 33925235,
+        "power": 33929927,
         "kills": 78538,
         "castle": 23,
         "activity": 195,
@@ -125,7 +145,7 @@
         "id": "431507849606",
         "name": "ThisMitchThing",
         "rank": 2,
-        "power": 33836220,
+        "power": 33869422,
         "kills": 209890,
         "castle": 21,
         "activity": 250,
@@ -135,29 +155,19 @@
         "id": "430781260166",
         "name": "lROMANl",
         "rank": 3,
-        "power": 33759246,
+        "power": 33746129,
         "kills": 13010,
         "castle": 23,
         "activity": 235,
         "joined": null
       },
       {
-        "id": "429345694086",
-        "name": "ĜhōsťPōtātō",
-        "rank": 3,
-        "power": 33673898,
-        "kills": 341485,
-        "castle": 24,
-        "activity": null,
-        "joined": null
-      },
-      {
-        "id": "429616447878",
-        "name": "BaoBaо",
-        "rank": 3,
-        "power": 33275674,
-        "kills": 1231006,
-        "castle": 26,
+        "id": "430455832966",
+        "name": "Уevheniia",
+        "rank": 2,
+        "power": 33733531,
+        "kills": 26118,
+        "castle": 22,
         "activity": 200,
         "joined": null
       },
@@ -175,30 +185,70 @@
         "id": "429391602054",
         "name": "NiagaraLu",
         "rank": 3,
-        "power": 33113344,
+        "power": 33133324,
         "kills": 23721,
         "castle": 23,
         "activity": 210,
         "joined": null
       },
       {
-        "id": "427397489030",
-        "name": "Arraaa",
-        "rank": 2,
-        "power": 32841070,
-        "kills": 27672,
-        "castle": 22,
-        "activity": 70,
+        "id": "427852226950",
+        "name": "Аллочка2111",
+        "rank": 3,
+        "power": 33066659,
+        "kills": 58345,
+        "castle": 23,
+        "activity": 120,
+        "joined": null
+      },
+      {
+        "id": "429302694278",
+        "name": "Czensik",
+        "rank": 3,
+        "power": 33048433,
+        "kills": 42957,
+        "castle": 23,
+        "activity": 190,
+        "joined": null
+      },
+      {
+        "id": "428155355526",
+        "name": "КРАСИВЫЙ",
+        "rank": 4,
+        "power": 32915640,
+        "kills": 15621,
+        "castle": 23,
+        "activity": 220,
         "joined": null
       },
       {
         "id": "430351253894",
         "name": "AlwaysGiveUp",
         "rank": 3,
-        "power": 32482285,
+        "power": 32864915,
         "kills": 26966,
         "castle": 22,
         "activity": 165,
+        "joined": null
+      },
+      {
+        "id": "427397489030",
+        "name": "Arraaa",
+        "rank": 2,
+        "power": 32643883,
+        "kills": 27672,
+        "castle": 22,
+        "activity": 70,
+        "joined": null
+      },
+      {
+        "id": "430740259206",
+        "name": "RuslanSeij",
+        "rank": 3,
+        "power": 32580357,
+        "kills": 124393,
+        "castle": 23,
+        "activity": 185,
         "joined": null
       },
       {
@@ -212,112 +262,72 @@
         "joined": null
       },
       {
-        "id": "428155355526",
-        "name": "КРАСИВЫЙ",
-        "rank": 4,
-        "power": 32178626,
-        "kills": 15621,
-        "castle": 23,
-        "activity": 220,
-        "joined": null
-      },
-      {
-        "id": "429302694278",
-        "name": "Czensik",
+        "id": "428021440902",
+        "name": "PEPENG-PETMALU",
         "rank": 3,
-        "power": 32151925,
-        "kills": 42957,
-        "castle": 23,
-        "activity": 190,
-        "joined": null
-      },
-      {
-        "id": "427927126406",
-        "name": "Xiodan",
-        "rank": 3,
-        "power": 31961446,
-        "kills": 5205,
-        "castle": 22,
-        "activity": 160,
-        "joined": null
-      },
-      {
-        "id": "427852226950",
-        "name": "Аллочка2111",
-        "rank": 3,
-        "power": 31960009,
-        "kills": 58345,
-        "castle": 23,
-        "activity": 120,
-        "joined": null
-      },
-      {
-        "id": "430325260678",
-        "name": "саняра19",
-        "rank": 3,
-        "power": 31604817,
-        "kills": 201161,
-        "castle": 27,
-        "activity": 215,
-        "joined": null
-      },
-      {
-        "id": "430415970694",
-        "name": "First-red",
-        "rank": 3,
-        "power": 31486595,
-        "kills": 164391,
-        "castle": 23,
-        "activity": 145,
+        "power": 31739249,
+        "kills": 122801,
+        "castle": 25,
+        "activity": 200,
         "joined": null
       },
       {
         "id": "427472617862",
         "name": "Xsambi",
         "rank": 3,
-        "power": 31341100,
+        "power": 31704138,
         "kills": 17613,
         "castle": 23,
         "activity": 200,
         "joined": null
       },
       {
+        "id": "427927126406",
+        "name": "Xiodan",
+        "rank": 3,
+        "power": 31618996,
+        "kills": 5205,
+        "castle": 22,
+        "activity": 160,
+        "joined": null
+      },
+      {
+        "id": "430415970694",
+        "name": "First-red",
+        "rank": 3,
+        "power": 31504934,
+        "kills": 164391,
+        "castle": 23,
+        "activity": 145,
+        "joined": null
+      },
+      {
         "id": "428384420230",
         "name": "RuneWeaver",
         "rank": 3,
-        "power": 30033278,
+        "power": 30601535,
         "kills": 318993,
         "castle": 25,
         "activity": 205,
         "joined": null
       },
       {
-        "id": "427849064838",
-        "name": "Killer13",
-        "rank": 2,
-        "power": 29940766,
-        "kills": 75172,
-        "castle": 21,
-        "activity": 180,
-        "joined": null
-      },
-      {
         "id": "429507387782",
         "name": "LegendIam",
         "rank": 2,
-        "power": 29821008,
+        "power": 30210879,
         "kills": 163343,
         "castle": 21,
         "activity": 220,
         "joined": null
       },
       {
-        "id": "428540420486",
-        "name": "PIKACHU-",
+        "id": "427849064838",
+        "name": "Killer13",
         "rank": 2,
-        "power": 29673032,
-        "kills": 49417,
-        "castle": 20,
+        "power": 29936861,
+        "kills": 75172,
+        "castle": 21,
         "activity": 180,
         "joined": null
       },
@@ -325,30 +335,50 @@
         "id": "430096474502",
         "name": "~NaKo~",
         "rank": 3,
-        "power": 29588345,
+        "power": 29721904,
         "kills": 40807,
         "castle": 23,
         "activity": 170,
         "joined": null
       },
       {
-        "id": "430522122630",
-        "name": "Vallaris",
-        "rank": 4,
-        "power": 29500067,
-        "kills": 194404,
-        "castle": 25,
-        "activity": 220,
+        "id": "428540420486",
+        "name": "PIKACHU-",
+        "rank": 2,
+        "power": 29566041,
+        "kills": 49417,
+        "castle": 20,
+        "activity": 180,
         "joined": null
       },
       {
         "id": "429154779526",
         "name": "InvictaDP",
         "rank": 3,
-        "power": 29221377,
+        "power": 29395800,
         "kills": 145674,
         "castle": 23,
         "activity": 175,
+        "joined": null
+      },
+      {
+        "id": "430522122630",
+        "name": "Vallaris",
+        "rank": 4,
+        "power": 29381254,
+        "kills": 194404,
+        "castle": 25,
+        "activity": 220,
+        "joined": null
+      },
+      {
+        "id": "429022208390",
+        "name": "•Fallout•",
+        "rank": 3,
+        "power": 29352231,
+        "kills": 57167,
+        "castle": 25,
+        "activity": 225,
         "joined": null
       },
       {
@@ -365,30 +395,20 @@
         "id": "428838379910",
         "name": "D0MINIK19",
         "rank": 3,
-        "power": 28921867,
+        "power": 28917962,
         "kills": 10164,
         "castle": 22,
         "activity": 145,
         "joined": null
       },
       {
-        "id": "429022208390",
-        "name": "•Fallout•",
+        "id": "429257449862",
+        "name": "DrJimMiller",
         "rank": 3,
-        "power": 28920621,
-        "kills": 57167,
-        "castle": 25,
-        "activity": 225,
-        "joined": null
-      },
-      {
-        "id": "430740259206",
-        "name": "RuslanSeij",
-        "rank": 3,
-        "power": 28449239,
-        "kills": 124393,
-        "castle": 23,
-        "activity": 185,
+        "power": 28294453,
+        "kills": 59163,
+        "castle": 24,
+        "activity": 220,
         "joined": null
       },
       {
@@ -402,53 +422,73 @@
         "joined": null
       },
       {
-        "id": "429257449862",
-        "name": "DrJimMiller",
-        "rank": 3,
-        "power": 27754945,
-        "kills": 59163,
-        "castle": 24,
-        "activity": 220,
-        "joined": null
-      },
-      {
-        "id": "429437018502",
-        "name": "Biglu",
-        "rank": 2,
-        "power": 27266070,
-        "kills": 2980,
-        "castle": 22,
-        "activity": 140,
-        "joined": null
-      },
-      {
-        "id": "427523637638",
-        "name": "YourВunnyWrote",
-        "rank": 3,
-        "power": 27194588,
-        "kills": 573289,
-        "castle": 27,
-        "activity": 245,
-        "joined": null
-      },
-      {
         "id": "428389278086",
         "name": "IВедьмAI",
         "rank": 3,
-        "power": 27161794,
+        "power": 27890896,
         "kills": 486962,
         "castle": 23,
         "activity": 150,
         "joined": null
       },
       {
+        "id": "429437018502",
+        "name": "Biglu",
+        "rank": 2,
+        "power": 27576006,
+        "kills": 2980,
+        "castle": 22,
+        "activity": 140,
+        "joined": null
+      },
+      {
+        "id": "430419763590",
+        "name": "Suh1eDet1",
+        "rank": 3,
+        "power": 27522906,
+        "kills": 254862,
+        "castle": 23,
+        "activity": 140,
+        "joined": null
+      },
+      {
+        "id": "427350327686",
+        "name": "69Devil69",
+        "rank": 4,
+        "power": 27229777,
+        "kills": 178220,
+        "castle": 24,
+        "activity": 135,
+        "joined": null
+      },
+      {
+        "id": "428389302662",
+        "name": "lЭкзорцистl",
+        "rank": 3,
+        "power": 27126738,
+        "kills": 670566,
+        "castle": 23,
+        "activity": 155,
+        "joined": null
+      },
+      {
         "id": "427800002950",
         "name": "LaraLove",
         "rank": 3,
-        "power": 27010933,
+        "power": 26928951,
         "kills": 10614,
         "castle": 22,
         "activity": 135,
+        "joined": null
+      },
+      {
+        "id": "430580703622",
+        "name": "AKr",
+        "rank": 3,
+        "power": 26915145,
+        "kills": 129645,
+        "castle": 24,
+        "activity": 180,
         "joined": null
       },
       {
@@ -462,6 +502,16 @@
         "joined": null
       },
       {
+        "id": "430041137542",
+        "name": "DrAkzhuldyz",
+        "rank": 3,
+        "power": 26879394,
+        "kills": 17174,
+        "castle": 22,
+        "activity": 165,
+        "joined": null
+      },
+      {
         "id": "427357593990",
         "name": "Meeeeeeeeeepp",
         "rank": 3,
@@ -472,53 +522,33 @@
         "joined": null
       },
       {
+        "id": "427523637638",
+        "name": "YourВunnyWrote",
+        "rank": 3,
+        "power": 26707230,
+        "kills": 573289,
+        "castle": 27,
+        "activity": 245,
+        "joined": null
+      },
+      {
         "id": "430275805574",
         "name": "Ilarija",
         "rank": 3,
-        "power": 26691161,
+        "power": 26695771,
         "kills": 107718,
         "castle": 23,
         "activity": 225,
         "joined": null
       },
       {
-        "id": "428389302662",
-        "name": "lЭкзорцистl",
-        "rank": 3,
-        "power": 26646203,
-        "kills": 670566,
+        "id": "429410713990",
+        "name": "MadBusik",
+        "rank": null,
+        "power": 26581570,
+        "kills": 163499,
         "castle": 23,
-        "activity": 155,
-        "joined": null
-      },
-      {
-        "id": "430580703622",
-        "name": "AKr",
-        "rank": 3,
-        "power": 26577220,
-        "kills": 129645,
-        "castle": 24,
-        "activity": 180,
-        "joined": null
-      },
-      {
-        "id": "430041137542",
-        "name": "DrAkzhuldyz",
-        "rank": 3,
-        "power": 26474482,
-        "kills": 17174,
-        "castle": 22,
-        "activity": 165,
-        "joined": null
-      },
-      {
-        "id": "427350327686",
-        "name": "69Devil69",
-        "rank": 4,
-        "power": 26402339,
-        "kills": 178220,
-        "castle": 24,
-        "activity": 135,
+        "activity": null,
         "joined": null
       },
       {
@@ -542,26 +572,6 @@
         "joined": null
       },
       {
-        "id": "430419763590",
-        "name": "Suh1eDet1",
-        "rank": 3,
-        "power": 25657038,
-        "kills": 254862,
-        "castle": 23,
-        "activity": 140,
-        "joined": null
-      },
-      {
-        "id": "429410713990",
-        "name": "MadBusik",
-        "rank": null,
-        "power": 25583994,
-        "kills": 163499,
-        "castle": 23,
-        "activity": null,
-        "joined": null
-      },
-      {
         "id": "427354366342",
         "name": "DANTE~",
         "rank": 2,
@@ -569,16 +579,6 @@
         "kills": 33322,
         "castle": 23,
         "activity": null,
-        "joined": null
-      },
-      {
-        "id": "430279221638",
-        "name": "Ogor2Big",
-        "rank": 3,
-        "power": 25489987,
-        "kills": 114955,
-        "castle": 23,
-        "activity": 195,
         "joined": null
       },
       {
@@ -602,13 +602,23 @@
         "joined": null
       },
       {
-        "id": "429501186438",
-        "name": "Sudak37",
+        "id": "430279221638",
+        "name": "Ogor2Big",
         "rank": 3,
-        "power": 24376061,
-        "kills": 598950,
-        "castle": 24,
-        "activity": 210,
+        "power": 24664207,
+        "kills": 114955,
+        "castle": 23,
+        "activity": 195,
+        "joined": null
+      },
+      {
+        "id": "430707900806",
+        "name": "-Leonin-",
+        "rank": 2,
+        "power": 24522273,
+        "kills": 26203,
+        "castle": 21,
+        "activity": 225,
         "joined": null
       },
       {
@@ -632,16 +642,6 @@
         "joined": null
       },
       {
-        "id": "428703154566",
-        "name": "Кислыйй",
-        "rank": 3,
-        "power": 24291381,
-        "kills": 442733,
-        "castle": 26,
-        "activity": 200,
-        "joined": null
-      },
-      {
         "id": "428857352582",
         "name": "Verona1389",
         "rank": 3,
@@ -652,30 +652,50 @@
         "joined": null
       },
       {
-        "id": "430707900806",
-        "name": "-Leonin-",
-        "rank": 2,
-        "power": 24258510,
-        "kills": 26203,
-        "castle": 21,
-        "activity": 225,
+        "id": "429501186438",
+        "name": "Sudak37",
+        "rank": 3,
+        "power": 24137034,
+        "kills": 598950,
+        "castle": 24,
+        "activity": 210,
         "joined": null
       },
       {
         "id": "427593834886",
         "name": "Maksim55",
         "rank": 3,
-        "power": 24122347,
+        "power": 24118442,
         "kills": 17732,
         "castle": 22,
         "activity": 200,
         "joined": null
       },
       {
+        "id": "428703154566",
+        "name": "Кислыйй",
+        "rank": 3,
+        "power": 23855085,
+        "kills": 442733,
+        "castle": 26,
+        "activity": 200,
+        "joined": null
+      },
+      {
+        "id": "428579938694",
+        "name": "Derikan",
+        "rank": 3,
+        "power": 23824886,
+        "kills": 111571,
+        "castle": 22,
+        "activity": 165,
+        "joined": null
+      },
+      {
         "id": "427925070214",
         "name": "Misa123",
         "rank": 3,
-        "power": 23741338,
+        "power": 23756993,
         "kills": 166902,
         "castle": 24,
         "activity": 175,
@@ -702,90 +722,80 @@
         "joined": null
       },
       {
-        "id": "428579938694",
-        "name": "Derikan",
-        "rank": 3,
-        "power": 22734220,
-        "kills": 111571,
-        "castle": 22,
-        "activity": 165,
-        "joined": null
-      },
-      {
-        "id": "429957390726",
-        "name": "кааааа",
-        "rank": 3,
-        "power": 22454283,
-        "kills": 41908,
-        "castle": 23,
-        "activity": 170,
-        "joined": null
-      },
-      {
-        "id": "429357425030",
-        "name": "Borodyanka",
-        "rank": 2,
-        "power": 22329411,
-        "kills": 9835,
-        "castle": 20,
-        "activity": 130,
-        "joined": null
-      },
-      {
         "id": "430139924870",
         "name": "CERB3RUZ",
         "rank": 1,
-        "power": 21934389,
+        "power": 22759462,
         "kills": 31055,
         "castle": 23,
         "activity": 120,
         "joined": null
       },
       {
-        "id": "430348853638",
-        "name": "Jagiii",
+        "id": "429357425030",
+        "name": "Borodyanka",
         "rank": 2,
-        "power": 21894533,
-        "kills": 37906,
-        "castle": 21,
-        "activity": 175,
-        "joined": null
-      },
-      {
-        "id": "427499250054",
-        "name": "BubliK",
-        "rank": 3,
-        "power": 21735381,
-        "kills": 959563,
-        "castle": 23,
-        "activity": 215,
-        "joined": null
-      },
-      {
-        "id": "427413840262",
-        "name": "Andrdark20",
-        "rank": 2,
-        "power": 21645088,
-        "kills": 3674,
-        "castle": 21,
-        "activity": 10,
+        "power": 22560493,
+        "kills": 9835,
+        "castle": 20,
+        "activity": 130,
         "joined": null
       },
       {
         "id": "431068078470",
         "name": "Drxella",
         "rank": 3,
-        "power": 21499905,
+        "power": 22483236,
         "kills": 106829,
         "castle": 24,
         "activity": 210,
         "joined": null
       },
       {
+        "id": "429957390726",
+        "name": "кааааа",
+        "rank": 3,
+        "power": 22273923,
+        "kills": 41908,
+        "castle": 23,
+        "activity": 170,
+        "joined": null
+      },
+      {
+        "id": "430348853638",
+        "name": "Jagiii",
+        "rank": 2,
+        "power": 22056001,
+        "kills": 37906,
+        "castle": 21,
+        "activity": 175,
+        "joined": null
+      },
+      {
+        "id": "427413840262",
+        "name": "Andrdark20",
+        "rank": 2,
+        "power": 21725457,
+        "kills": 3674,
+        "castle": 21,
+        "activity": 10,
+        "joined": null
+      },
+      {
+        "id": "427499250054",
+        "name": "BubliK",
+        "rank": 3,
+        "power": 21468947,
+        "kills": 959563,
+        "castle": 23,
+        "activity": 215,
+        "joined": null
+      },
+      {
         "id": "430828691846",
         "name": "zch0227",
         "rank": 3,
-        "power": 20647373,
+        "power": 21403592,
         "kills": 5934,
         "castle": 22,
         "activity": 165,
@@ -799,6 +809,16 @@
         "kills": 1479,
         "castle": 22,
         "activity": 195,
+        "joined": null
+      },
+      {
+        "id": "428933382534",
+        "name": "DoctorLea389",
+        "rank": 2,
+        "power": 20097874,
+        "kills": 5357,
+        "castle": 20,
+        "activity": 200,
         "joined": null
       },
       {
@@ -832,13 +852,13 @@
         "joined": null
       },
       {
-        "id": "428933382534",
-        "name": "DoctorLea389",
-        "rank": 2,
-        "power": 19519517,
-        "kills": 5357,
-        "castle": 20,
-        "activity": 200,
+        "id": "428765004166",
+        "name": "YurAri",
+        "rank": 4,
+        "power": 19414089,
+        "kills": 343495,
+        "castle": 25,
+        "activity": 190,
         "joined": null
       },
       {
@@ -852,6 +872,16 @@
         "joined": null
       },
       {
+        "id": "428616622470",
+        "name": "Man-o-war",
+        "rank": 3,
+        "power": 18946995,
+        "kills": 65674,
+        "castle": 23,
+        "activity": 70,
+        "joined": null
+      },
+      {
         "id": "429187637638",
         "name": "sopel99",
         "rank": 3,
@@ -859,26 +889,6 @@
         "kills": 15695,
         "castle": 22,
         "activity": 155,
-        "joined": null
-      },
-      {
-        "id": "428616622470",
-        "name": "Man-o-war",
-        "rank": 3,
-        "power": 18602417,
-        "kills": 65674,
-        "castle": 23,
-        "activity": 70,
-        "joined": null
-      },
-      {
-        "id": "428765004166",
-        "name": "YurAri",
-        "rank": 4,
-        "power": 18564536,
-        "kills": 343495,
-        "castle": 25,
-        "activity": 190,
         "joined": null
       },
       {
@@ -912,21 +922,21 @@
         "joined": null
       },
       {
-        "id": "429386211718",
-        "name": "MrDRS",
-        "rank": 1,
-        "power": 16684710,
-        "kills": 77948,
+        "id": "427587846534",
+        "name": "Circlet",
+        "rank": 3,
+        "power": 16929738,
+        "kills": 58111,
         "castle": 23,
         "activity": null,
         "joined": null
       },
       {
-        "id": "427587846534",
-        "name": "Circlet",
-        "rank": 3,
-        "power": 16664567,
-        "kills": 58111,
+        "id": "429386211718",
+        "name": "MrDRS",
+        "rank": 1,
+        "power": 16684710,
+        "kills": 77948,
         "castle": 23,
         "activity": null,
         "joined": null
@@ -945,7 +955,7 @@
         "id": "431078965638",
         "name": "Crazy-Evil",
         "rank": null,
-        "power": 15008872,
+        "power": 15234937,
         "kills": 2458,
         "castle": 19,
         "activity": null,
@@ -955,27 +965,17 @@
         "id": "431356526982",
         "name": "Lindinhaaas2",
         "rank": 3,
-        "power": 14206086,
+        "power": 14387809,
         "kills": 61285,
         "castle": 22,
         "activity": 160,
         "joined": null
       },
       {
-        "id": "427966284166",
-        "name": "Tauronn",
-        "rank": 1,
-        "power": 14087595,
-        "kills": 19472,
-        "castle": 27,
-        "activity": null,
-        "joined": null
-      },
-      {
         "id": "429379068294",
         "name": "Deafad84",
         "rank": 2,
-        "power": 13802781,
+        "power": 13841068,
         "kills": 9258,
         "castle": 20,
         "activity": 130,
@@ -995,7 +995,7 @@
         "id": "427613569414",
         "name": "UzbekskiyTomat",
         "rank": null,
-        "power": 11831522,
+        "power": 11835664,
         "kills": 89151,
         "castle": 21,
         "activity": null,
@@ -1005,10 +1005,6 @@
   },
   "tracker": null,
   "history": [
-    {
-      "time": "2026-10-27T05:23:36.939Z",
-      "power": 1803480995
-    },
     {
       "time": "2026-10-27T10:47:04.568Z",
       "power": 1833260660
@@ -1388,6 +1384,10 @@
     {
       "time": "2026-11-20T01:16:00.466Z",
       "power": 2618957041
+    },
+    {
+      "time": "2026-11-20T08:53:20.654Z",
+      "power": 2671744154
     }
   ]
 }
